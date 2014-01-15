@@ -4,6 +4,22 @@ This is the repository which hosts the code for the [Nairobi GNU/Linux Users Gro
 ## Wanna build it?
 In order to build this, you need to have [Pelican](http://blog.getpelican.com/) installed.  The easiest way to do this is to use Python virtual environments; `virtualenv` will work, but it's recommended to use `virtualenv-wrapper` (a set of extensions to `virtualenv`).
 
+##Extra note for Arch Linux users:
+
+An easier way of installing Pelican is from the AUR. Use the AUR helper Packer and get it cooking:
+
+    packer -Si pelican
+    packer -S --noedit pelican
+    
+The first command checks for information and dependencies that will be installed when you set up Pelican from the AUR.
+The second command installs Pelican from the AUR, and it will not prompt you to edit the PKGBUILD before the package is built (note the option --noedit).
+Note that with Packer, it automatically pulls in all the dependencies needed to build the package from AUR.
+In this usecase, it would be similar to downloading the PKGBUILD from AUR and running:
+
+    makepkg -c -s PKGBUILD
+    
+On the PKGBUILD. The -c flag tells makepkg to clean up after itself, and -S tells it to satisfy all dependencies automatically.    
+
 For reference, a list of commonly-used distro package names is:
 
   - Arch Linux: `python-virtualenvwrapper`
