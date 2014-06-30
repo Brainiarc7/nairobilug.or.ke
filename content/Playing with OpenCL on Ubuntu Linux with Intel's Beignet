@@ -1,0 +1,42 @@
+Title: Playing with Beignet on Intel's IVybridge Gen2 GPU on Ubuntu for the OpenCL zestiness
+Date: 2014-06-30 22:33
+Category: OpenCL
+Tags: OpenCL, Beignet, Intel, Ubuntu
+Slug: Hack, break, rinse, repeat!
+Author: Dennis E. Mungai
+Summary: Playing with Beignet on Intel's Ivybridge Gen2 GPU on Ubuntu for the OpenCL zestiness
+
+
+
+Hello people,
+
+After a bit of tweaking and pulling code, I compiled the latest git version of Beignet on the previously mentioned notebook with Intel HD Graphics 4000 and an IVB Gen 3 Intel Core processor.
+
+A lot of changes have happened since yesterday's major release upstream, and most of the bugs and stability issues have been ironed out.
+
+See screen shots below for OpenCL benchmarks with LuxMark, OpenCL-accelerated  video encoding with Hybrid Encoder (running ffmpeg-opencl branch in the background and a nightly build of x264-trunk-hg) on the host machine.
+
+Conclusions:
+
+Intel has worked out Beignet to a usable, great OpenCL ICD in mere months, and it looks very promising. This is probably the fastest OpenCL ICD I've seen developed out there, and judging by how young this project is, I'd say that, given its' current state, Beignet has a great future.
+
+To make things a bit more interesting, I've included screen shots from Powertop illustrating the GPU and the CPU power consumption when OpenCL assisted video encoding is enabled, indicating that the GPU is indeed being put to use and that the code isn't merely running on some reference ICD, but rather, on the GPU core as intended.
+
+Notes:
+
+There be dragons. With some OpenCL code blocks that depend heavily on OpenCL atomics, the GPU driver may enter into an endless oops, hanging the entire system and rendering it unusable. This is however, very rare, having stress-tested the system the whole day via the automated Phoronix test suite and encountered that hang only thrice.
+
+Bisection indicates major panics when the ICD is called upon to handle OpenCL atomics beyond word-sizes that the GPU's accelerator supports. I believe the submitted bug will help Beignet's developers to track down the bisected commit and fix it upstream.
+
+Regards,
+
+Dennis.
+
+
+
+
+​
+
+Here, have a gander.
+
+Questions? Drop a line.
